@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard"],
+  "semanticCommits": "disabled",
+  "commitMessageAction": "Raise",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newValue}}",
+  "automerge": true,
+  "platformAutomerge": true,
+  "minimumReleaseAge": "3 days",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "The toolchain moves as one piece, so the gate judges it as one piece and a repository receives one pull request rather than six.",
+      "matchPackageNames": [
+        "@biomejs/biome",
+        "@types/node",
+        "prettier",
+        "tsup",
+        "typescript",
+        "vitest"
+      ],
+      "groupName": "the toolchain"
+    },
+    {
+      "description": "The types describe the oldest node these servers accept. Typing against a newer line lets an API that does not exist there compile clean and fail at the version the package tells its callers to run. This bound moves with the floor.",
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "<25"
+    },
+    {
+      "description": "The declaration bundler inside tsup reads an internal of the compiler that the 7 line no longer exposes, and the build dies after the JavaScript. Lift this bound when tsup builds against that line.",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<6"
+    },
+    {
+      "description": "The image is built on the node line these servers ask for. This bound moves with the floor.",
+      "matchManagers": ["dockerfile"],
+      "matchPackageNames": ["node"],
+      "allowedVersions": "<25"
+    },
+    {
+      "description": "A server that another server reads carries behaviour rather than tooling, so it travels in its own pull request and its changelog is read.",
+      "matchPackageNames": ["/^mcp-/"],
+      "groupName": "the servers this one reads"
+    }
+  ]
+}
