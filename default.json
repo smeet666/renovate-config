@@ -8,12 +8,19 @@
   "automerge": true,
   "platformAutomerge": true,
   "minimumReleaseAge": "3 days",
+  "rangeStrategy": "bump",
+  "description": "A published package carries no lockfile, so the range in its manifest is what a consumer installs against. The range is therefore a claim about what the package accepts to run, and 'bump' moves its floor with the update rather than leaving a floor nobody would run behind.",
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
     "schedule": ["before 6am on monday"]
   },
   "packageRules": [
+    {
+      "description": "A development tool reaches no consumer tree, so an exact version costs no duplication and buys an identical toolchain on every machine and every run.",
+      "matchDepTypes": ["devDependencies"],
+      "rangeStrategy": "pin"
+    },
     {
       "description": "The toolchain moves as one piece, so the gate judges it as one piece and a repository receives one pull request rather than six.",
       "matchPackageNames": [
