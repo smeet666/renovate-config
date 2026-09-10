@@ -15,6 +15,18 @@
     "automerge": true,
     "schedule": ["before 6am on monday"]
   },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "The formatter configuration names the schema it is written against, in a URL carrying the version. Bumping the dependency without that URL leaves the file declaring a schema the installed formatter does not use, which the run reports as a notice and carries on from, so the drift lives in a green log.",
+      "managerFilePatterns": ["/(^|/)biome\\.jsonc?$/"],
+      "matchStrings": [
+        "https://biomejs\\.dev/schemas/(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)/schema\\.json"
+      ],
+      "depNameTemplate": "@biomejs/biome",
+      "datasourceTemplate": "npm"
+    }
+  ],
   "packageRules": [
     {
       "description": "A development tool reaches no consumer tree, so an exact version costs no duplication and buys an identical toolchain on every machine and every run.",
