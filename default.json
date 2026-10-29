@@ -34,14 +34,15 @@
       "rangeStrategy": "pin"
     },
     {
-      "description": "The toolchain moves as one piece, so the gate judges it as one piece and a repository receives one pull request rather than six.",
+      "description": "The toolchain moves as one piece, so the gate judges it as one piece and a repository receives one pull request rather than six. The vitest plugins pin the exact vitest they run under, so one moved without the runner fails every check.",
       "matchPackageNames": [
         "@biomejs/biome",
         "@types/node",
         "prettier",
         "tsup",
         "typescript",
-        "vitest"
+        "vitest",
+        "/^@vitest\\//"
       ],
       "groupName": "the toolchain"
     },
