@@ -63,6 +63,12 @@
       "allowedVersions": "<25"
     },
     {
+      "description": "The engines floor is the oldest node line its authors still support, and raising it breaks the install of anyone who follows the previous announcement, which makes it a major release decided by hand. This bound moves with the floor.",
+      "matchDepTypes": ["engines"],
+      "matchPackageNames": ["node"],
+      "allowedVersions": "<25"
+    },
+    {
       "description": "A server that another server reads carries behaviour rather than tooling, so it travels in its own pull request and its changelog is read.",
       "matchPackageNames": ["/^mcp-/"],
       "groupName": "the servers this one reads"
